@@ -5,8 +5,8 @@ pipeline {
     }
    stages{
     stage('CompileandRunSonarAnalysis') {
-            steps {	
-		sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=asgbuggywebapp -Dsonar.organization=asgbuggywebapp -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=932558e169d66a8f1d1adf470b908a46156f5844'
+            steps {
+                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=asgbuggywebapp3 -Dsonar.organization=asgbuggywebapp3 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=e2264ce46188d03a5b8e0904dec9a806ec14ccee'
 			}
     }
 
@@ -31,7 +31,7 @@ pipeline {
 	stage('Push') {
             steps {
                 script{
-                    docker.withRegistry('https://145988340565.dkr.ecr.us-west-2.amazonaws.com', 'ecr:us-west-2:aws-credentials') {
+                    docker.withRegistry('https://581349712378.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-credentials') {
                     app.push("latest")
                     }
                 }
@@ -46,7 +46,6 @@ pipeline {
 		}
 	      }
    	}
-	   
 	stage ('wait_for_testing'){
 	   steps {
 		   sh 'pwd; sleep 180; echo "Application Has been deployed on K8S"'
